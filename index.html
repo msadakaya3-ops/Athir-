@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+  <meta name="theme-color" content="#0a0f2a">
+  <meta name="description" content="أثير - تطبيق الرفيق اليومي الذكي">
+  <title>أثير ATHIR - الرفيق اليومي</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌙</text></svg>">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌙</text></svg>">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      user-select: none;
+    }
+
+    body {
+      background: radial-gradient(circle at 10% 20%, #0a0f2a, #03050b);
+      font-family: 'Tajawal', 'Cairo', 'Amiri', sans-serif;
+      color: #eef5ff;
+      min-height: 100vh;
+      overflow-x: hidden;
+      padding-bottom: 80px;
+    }
+
+    /* نجوم متحركة */
+    .star {
+      position: fixed;
+      background-color: white;
+      border-radius: 50%;
+      opacity: 0.6;
+      pointer-events: none;
+      z-index: 0;
+      animation: twinkle 3s infinite alternate;
+    }
+
+    @keyframes twinkle {
+      0% { opacity: 0.2; transform: scale(1);}
+      100% { opacity: 0.9; transform: scale(1.2);}
+    }
+
+    /* شريط تنقل سفلي زجاجي */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(10, 20, 40, 0.7);
+      backdrop-filter: blur(20px);
+      border-top: 1px solid rgba(0, 255, 255, 0.3);
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 8px 20px;
+      z-index: 1000;
+      border-radius: 30px 30px 0 0;
+      flex-wrap: wrap;
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      color: #a0c4ff;
+      font-size: 12px;
+      transition: 0.2s;
+      cursor: pointer;
+      flex: 0 0 calc(25% - 8px);
+    }
+
+    .nav-item.active {
+      color: #0ff;
+      text-shadow: 0 0 5px cyan;
+    }
+
+    .nav-item i {
+      font-size: 24px;
+    }
+
+    /* الحاوية الرئيسية */
+    .main-container {
+      max-width: 700px;
+      margin: 20px auto;
+      padding: 15px;
+      z-index: 2;
+      position: relative;
+    }
+
+    /* رأس القمر التفاعلي */
+    .moon-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(20, 30, 55, 0.5);
+      backdrop-filter: blur(15px);
+      border-radius: 60px;
+      padding: 8px 20px;
+      margin-bottom: 25px;
+      border: 1px solid rgba(0, 255, 255, 0.3);
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .moon-avatar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .moon-face {
+      font-size: 48px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .athir-title {
+      background: white;
+      border-radius: 40px;
+      padding: 5px 16px;
+      color: #0a0f2a;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .quick-icons {
+      display: flex;
+      gap: 12px;
+    }
+
+    .quick-icon {
+      background: rgba(0,255,255,0.2);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      cursor: pointer;
+    }
+
+    /* بطاقات زجاجية */
+    .glass-card {
+      background: rgba(20, 30, 55, 0.4);
+      backdrop-filter: blur(12px);
+      border-radius: 32px;
+      border: 1px solid rgba(0, 255, 255, 0.3);
+      padding: 20px;
+      margin-bottom: 20px;
+      transition: 0.2s;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-right: 4px solid cyan;
+      padding-right: 12px;
+    }
+
+    /* قارئ PDF منطقة رفع */
+    .upload-area {
+      border: 2px dashed cyan;
+      border-radius: 28px;
+      padding: 30px;
+      text-align: center;
+      cursor: pointer;
+      margin-bottom: 20px;
+    }
+
+    /* مكتبتي */
+    .book-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(0,0,0,0.4);
+      border-radius: 24px;
+      padding: 12px;
+      margin-bottom: 12px;
+    }
+
+    button, .cyber-button {
+      background: rgba(0, 255, 255, 0.2);
+      border: 1px solid cyan;
+      border-radius: 40px;
+      padding: 8px 18px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      margin: 5px;
+    }
+
+    /* محرر المفكرة */
+    .rich-editor {
+      background: rgba(0,0,0,0.5);
+      border-radius: 24px;
+      padding: 12px;
+      width: 100%;
+      color: white;
+      font-family: 'Cairo';
+      border: 1px solid rgba(0,255,255,0.3);
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 12px;
+      color: #88aaff;
+    }
+
+    @media (max-width: 480px) {
+      .nav-item {
+        flex: 0 0 calc(50% - 8px);
+      }
+      .section-title {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&family=Cairo&family=Amiri&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+</head>
+<body>
+<div id="app"></div>
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js').catch(err => console.log('SW registration failed:', err));
+  }
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
+</script>
+<script src="app.js"></script>
+</body>
+</html>
