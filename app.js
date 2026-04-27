@@ -146,21 +146,21 @@ function getTabContent(){
     <input type="file" id="pdfInput" accept="application/pdf" style="display:none" onchange="handlePDF(this.files[0])">
     ${pdfFiles.map((pdf,i)=>`<div class="book-card"><div><i class="fas fa-file-pdf"></i> ${pdf.name}</div><button onclick="openPDF(${i})">قراءة</button><button onclick="deletePDF(${i})">حذف</button></div>`).join('')}
     </div>`;
-  if(activeTab === 'reader') return `<div class="glass-card"><div class="section-title"><i class="fas fa-eye"></i> قارئ متطور</div><p>اختر كتابًا من مكتبتي لبدء القراءة بدقة عالية مع دعم التشكيل والعرض المتجهي.</p></div>`;
+  if(activeTab === 'reader') return `<div class="glass-card"><div class="section-title"><i class="fas fa-eye"></i> قارئ متطور</div><p>اختر كتابًا من مكتبتي لبدء القراءة بدقة عالية</p></div>`;
   if(activeTab === 'notes') return `
     <div class="glass-card"><div class="section-title"><i class="fas fa-sticky-note"></i> المفكرة الذكية</div>
     <textarea id="noteText" class="rich-editor" rows="3" placeholder="اكتب ملاحظتك..."></textarea>
     <button onclick="saveNote()" style="margin-top:10px">حفظ الملاحظة</button>
     ${notes.map(n=>`<div style="border-bottom:1px solid cyan; padding:10px"><span>${n.emoji||'📝'}</span> <strong>${n.date}</strong><p>${n.text}</p></div>`).join('')}
     </div>`;
-  if(activeTab === 'encyclopedia') return `<div class="glass-card"><div class="section-title"><i class="fas fa-university"></i> الموسوعة المعرفية</div><div id="encycContent">🌌 القمر يبعد 384,400 كم عن الأرض 🌙<br/>📚 المزيد من المعلومات قريباً...</div></div>`;
+  if(activeTab === 'encyclopedia') return `<div class="glass-card"><div class="section-title"><i class="fas fa-university"></i> الموسوعة المعرفية</div><div id="encycContent">🌌 القمر يبعد 384400 كم عن الأرض 🌙</div></div>`;
   if(activeTab === 'health') return `
     <div class="glass-card"><div class="section-title"><i class="fas fa-tint"></i> تتبع الماء والخطوات</div>
     <div style="text-align:center; padding:15px"><i class="fas fa-tint" style="font-size:40px;color:cyan"></i> <span id="waterCount">${waterIntake}</span>/8 أكواب <button onclick="addWater()">➕ كوب</button></div>
     <div style="padding:15px"><i class="fas fa-shoe-prints"></i> عدد الخطوات: <input type="number" id="stepInput" value="${stepsCount}" style="width:100px; padding:5px; border-radius:10px; border:1px solid cyan; background:rgba(0,0,0,0.5); color:white"><button onclick="setSteps(document.getElementById('stepInput').value)">تحديث</button></div>
     </div>`;
   if(activeTab === 'games') return `<div class="glass-card"><div class="section-title"><i class="fas fa-dice"></i> ألعاب بدون إنترنت</div>
-    <button onclick="alert('❓ سؤال: عاصمة فرنسا؟\n✅ الإجابة: باريس')">أسئلة عامة</button>
+    <button onclick="alert('❓ سؤال: عاصمة فرنسا؟\\n✅ الإجابة: باريس')">أسئلة عامة</button>
     <button onclick="alert('🎮 لعبة الذاكرة: افتح البطاقات المتطابقة')">لعبة الذاكرة</button>
     <button onclick="alert('🧩 ألغاز الصور: المستوى السهل')">ألغاز</button>
     <div style="margin-top:12px"><i class="fas fa-palette"></i> <button onclick="setActiveTab('drawing')">مساحة الرسم المضيئة</button></div>
@@ -185,13 +185,15 @@ function getTabContent(){
     <div style="text-align:center;font-size:3rem;padding:20px" id="pomodoroTimer">25:00</div>
     <button onclick="startPomodoro()">▶️ ابدأ العمل</button> <button onclick="resetPomodoro()">⏹️ إيقاف</button>
     </div>`;
-  if(activeTab === 'memory') return `<div class="glass-card"><div class="section-title"><i class="fas fa-lock"></i> ألبوم الذكريات</div><p>صورك وملاحظاتك المحمية بكود سري 🕊️</p><button onclick="addMemoryImage()">أضف صورة</button>${memoryImages.map(img=>`<div style="margin:10px 0"><img src="${img.src}" style="width:100%; border-radius:20px"/><p>${img.caption}</p></div>`).join('')}</div>`;
-  if(activeTab === 'settings') return `<div class="glass-card"><div class="section-title"><i class="fas fa-sliders-h"></i> الإعدادات</div><label>الاسم: <input type="text" id="userName" placeholder="اسمك" style="padding:5px; border-radius:10px; border:1px solid cyan; background:rgba(0,0,0,0.5); color:white"/></label><br/><br/><button onclick="alert('✅ تم حفظ التعديلات')">حفظ التعديلات</button><hr/><button onclick="localStorage.clear(); location.reload()">🔄 إعادة ضبط التطبيق</button></div>`;
+  if(activeTab === 'memory') return `<div class="glass-card"><div class="section-title"><i class="fas fa-lock"></i> ألبوم الذكريات</div><p>صورك وملاحظاتك المحمية بكود سري 🕊️</p><button onclick="addMemoryImage()">أضف صورة</button></div>`;
+  if(activeTab === 'settings') return `<div class="glass-card"><div class="section-title"><i class="fas fa-sliders-h"></i> الإعدادات</div><label>الاسم: <input type="text" id="userName" placeholder="اسمك" style="padding:5px; border-radius:10px; border:1px solid cyan; background:rgba(0,0,0,0.5); color:white"/></label><br/><br/><button onclick="alert('✅ تم حفظ الإعدادات')">حفظ الإعدادات</button><hr/><button onclick="localStorage.clear(); location.reload()">🔄 إعادة ضبط التطبيق</button></div>`;
   return `<div class="glass-card">مرحباً في أثير 🌙</div>`;
 }
 
 function renderApp(){
   const appDiv = document.getElementById('app');
+  if(!appDiv) return;
+  
   let moonChar = moonEmoji[moonMood] || '🌙';
   let content = `
   <div class="main-container">
@@ -213,7 +215,7 @@ function renderApp(){
     </div>
     
     <div id="pageContent">${getTabContent()}</div>
-    <footer>✨ المطور: AyaMsaddak ✨<br/>🌐 رابط التطبيق: athir-app.github.io</footer>
+    <footer>✨ المطور: AyaMsaddak ✨</footer>
   </div>
   <div class="bottom-nav">
     ${navItem('library','fas fa-book','مكتبتي')}
