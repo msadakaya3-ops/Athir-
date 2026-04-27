@@ -2,7 +2,7 @@
   "name": "أثير ATHIR - الرفيق اليومي",
   "short_name": "أثير",
   "description": "تطبيق ذكي يساعدك في إدارة يومك مع القراءة والدراسة والصحة والألعاب",
-  "start_url": "/Athir-/",
+  "start_url": "/Athir-/index.html",
   "display": "standalone",
   "background_color": "#0a0f2a",
   "theme_color": "#00ffff",
@@ -22,28 +22,20 @@
       "purpose": "any"
     }
   ],
-  "screenshots": [
-    {
-      "src": "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 540 720%22><rect fill=%22%230a0f2a%22 width=%22540%22 height=%22720%22/><text x=%2270%22 y=%22100%22 font-size=%2280%22>أثير</text><text x=%2270%22 y=%22200%22 font-size=%2240%22>🌙</text></svg>",
-      "sizes": "540x720",
-      "type": "image/svg+xml",
-      "form_factor": "narrow"
-    }
-  ],
   "categories": ["productivity", "education"],
   "shortcuts": [
     {
       "name": "المفكرة",
       "short_name": "مفكرة",
       "description": "افتح المفكرة بسرعة",
-      "url": "/Athir-/?tab=notes",
+      "url": "/Athir-/index.html?tab=notes",
       "icons": [{"src": "🗒️"}]
     },
     {
       "name": "التركيز",
       "short_name": "تركيز",
       "description": "ابدأ جلسة بومودورو",
-      "url": "/Athir-/?tab=focus",
+      "url": "/Athir-/index.html?tab=focus",
       "icons": [{"src": "⏱️"}]
     }
   ]
